@@ -25,7 +25,7 @@ const personSchema = new mongoose.Schema({
       validate: {
         validator: (v) => {
           console.log(v, "hjererere")
-          return (/\d{2,3}-\d{5,}/.test(v))
+          return (/^(\d{2,3}-\d{5,})$/.test(v))
         },
         message: props => `${props.value} is not a valid number`
       },
