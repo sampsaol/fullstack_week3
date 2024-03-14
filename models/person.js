@@ -16,17 +16,20 @@ mongoose.connect(url)
 const personSchema = new mongoose.Schema({
     name: {
       type: String,
-      minlength: 3
+      minlength: 3,
+      required: true
     },
     number: {
       type: String,
       minlength: 8,
       validate: {
-        validator: (number) => {
-          return (/\d{2}-\d{5,}/.test(number) || /\d{3}-\d{4,}/.test(number))
+        validator: (v) => {
+          console.log(v, "hjererere")
+          return (/\d{2,3}-\d{5,}/.test(v))
         },
         message: props => `${props.value} is not a valid number`
-      }
+      },
+      required: true
     }
   })
 
