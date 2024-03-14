@@ -31,8 +31,6 @@ const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-let persons = []
-
 app.get('/api/persons', (request, response) => {
   Person.find({}).then(persons => {
     response.json(persons)
@@ -41,7 +39,7 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/api/info', (request, response) => {
   Person.countDocuments({}).then(count => {
-    console.log(count, "hererreer")
+    console.log(count, 'hererreer')
     const phoneBookText = `Phonebook has info for ${count} people`
     const date = new Date()[Symbol.toPrimitive]('string')
     response.send(`<p>${phoneBookText}</p> <p>${date}</p>`)
@@ -74,7 +72,7 @@ app.post('/api/persons', (request, response, next) => {
 
   if (!body.name || !body.number) {
     return response.status(400).json({ error: 'name or number missing' })
-    }
+  }
 
   const person = new Person({
     name: body.name,
@@ -85,7 +83,7 @@ app.post('/api/persons', (request, response, next) => {
     response.json(savedPerson)
   })
 
-  .catch(error => next(error))
+    .catch(error => next(error))
   /* const id = Math.floor(Math.random() * 10000000)
   const person = request.body
   person.id = id
@@ -99,7 +97,7 @@ app.post('/api/persons', (request, response, next) => {
     return response.status(400).json({
       error: "name must be unique"
     })
-  } 
+  }
 
   persons = persons.concat(person)
   response.json(person) */
@@ -109,10 +107,10 @@ app.put('/api/persons/:id', (request, response, next) => {
   const { name, number } = request.body
 
   Person.findByIdAndUpdate(
-    request.params.id, 
+    request.params.id,
     { name, number },
-    { new: true, runValidators: true, context: 'query'}
-    )
+    { new: true, runValidators: true, context: 'query' }
+  )
     .then(updatedPerson => {
       response.json(updatedPerson)
     })
